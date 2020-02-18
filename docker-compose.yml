@@ -1,0 +1,19 @@
+version: '3'
+services: 
+    web:
+        build: 
+            context: . #pwd
+            dockerfile: DockerFile.dev #current directory
+        ports: 
+            - "3000:3000"
+        volumes: 
+            - /nodejs-react-client
+            - .:/react-app
+    tests:
+        build:
+            context: .
+            dockerfile: DockerFile.dev
+        volumes: 
+            - /nodejs-react-client
+            - .:/react-client
+        command: ["npm","run","test"]

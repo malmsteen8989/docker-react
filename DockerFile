@@ -1,0 +1,16 @@
+FROM node:alpine as builder
+
+COPY package.json .
+
+WORKDIR /react-app/
+
+RUN npm install
+
+COPY . . 
+
+RUN npm run build
+
+
+FROM nginx
+COPY --from=builder /react-app/build/ usr/share/nginx/html
+
